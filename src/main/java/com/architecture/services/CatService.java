@@ -1,13 +1,20 @@
 package com.architecture.services;
 
 import com.architecture.entities.Cat;
+import com.architecture.factory.AbstractCatFactory;
 import com.architecture.factory.CatFactory;
 import com.architecture.repository.CatRepository;
 import com.architecture.repository.IRepository;
+
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
-public class CatService {
+@Service
+public class CatService implements ICatService {
+  
     private static final AbstractCatFactory factory = CatFactory.getInstance();
+    
     private static final IRepository<Cat> repository = new CatRepository();
 
 
@@ -57,11 +64,11 @@ public class CatService {
     }
 
     
-    public Cat updateCat(String title,String description, double pric) throws Exception {
+    public Cat updateCat(long id, String title,String description, double pric) throws Exception {
         try{
             Cat cat = (Cat) factory.CreateObject(title, description, pric);
 
-            return repository.updateEntity(cat);
+            return repository.updateEntity(id,cat);
 
          }catch(Exception ex){
               throw new Exception(ex);

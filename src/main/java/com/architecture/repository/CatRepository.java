@@ -76,10 +76,10 @@ public class CatRepository implements IRepository<Cat> {
     }
 
     @Override
-    public Cat updateEntity(Cat cat) throws Exception {
+    public Cat updateEntity(long id, Cat cat) throws Exception {
         log.info("Updating Cat Entity in database: " + database.getClass().getName() + " with entity: "+ cat.toString() );
         
-        Cat findCat = database.getCatList().stream().filter(cats -> cat.getId() == cats.getId()).findFirst().orElse(null);
+        Cat findCat = database.getCatList().stream().filter(cats -> id == cats.getId()).findFirst().orElse(null);
 
         if(findCat != null){
             int index = database.getCatList().indexOf(findCat);

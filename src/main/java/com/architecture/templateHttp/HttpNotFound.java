@@ -1,9 +1,16 @@
-public class HttpNotFound extends AbstractTemplateHttp
+package com.architecture.templateHttp;
+
+import java.util.HashMap;
+
+import org.springframework.http.HttpStatus;
+
+public class HttpNotFound extends TemplateHttp
 {
     @Override
     protected void SetSuccess()
     {
         Success = false;
+        Status = HttpStatus.NOT_FOUND;    
     }
 
     @Override
@@ -11,5 +18,6 @@ public class HttpNotFound extends AbstractTemplateHttp
     {
         Data = aMsg;
     }
+
 
 }

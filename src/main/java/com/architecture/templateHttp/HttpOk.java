@@ -1,9 +1,14 @@
-public class HttpOk extends AbstractTemplateHttp
+package com.architecture.templateHttp;
+
+import org.springframework.http.HttpStatus;
+
+public class HttpOk extends TemplateHttp
 {
     @Override
     protected void SetSuccess()
     {
         Success = true;
+        Status = HttpStatus.OK;    
     }
 
     @Override

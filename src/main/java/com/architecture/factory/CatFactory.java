@@ -3,6 +3,7 @@ package com.architecture.factory;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.architecture.entities.Cat;
+import com.architecture.entities.ICat;
 
 public final class CatFactory extends AbstractCatFactory {
 

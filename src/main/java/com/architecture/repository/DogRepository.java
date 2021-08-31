@@ -69,10 +69,10 @@ public class DogRepository implements IRepository<Dog> {
     }
 
     @Override
-    public Dog updateEntity(Dog dog) throws Exception {
+    public Dog updateEntity(long id, Dog dog) throws Exception {
         log.info("Updating Dog Entity in database: " + database.getClass().getName() + " with entity: "+ dog.toString() );
         
-        Dog findDog = database.getDogList().stream().filter(cats -> dog.getId() == cats.getId()).findFirst().orElse(null);
+        Dog findDog = database.getDogList().stream().filter(cats -> id == cats.getId()).findFirst().orElse(null);
 
         if(findDog != null){
             int index = database.getDogList().indexOf(findDog);

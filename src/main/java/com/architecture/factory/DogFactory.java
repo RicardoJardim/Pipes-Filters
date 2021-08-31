@@ -1,8 +1,8 @@
 package com.architecture.factory;
 
 import java.util.concurrent.atomic.AtomicLong;
-
 import com.architecture.entities.Dog;
+import com.architecture.entities.IDog;
 
 public class DogFactory extends AbstractDogFactory {
 
@@ -28,7 +28,7 @@ public class DogFactory extends AbstractDogFactory {
         }
     }
 
-    public Dog CreateObject(String title,String description, double pric, double size) {
+    public IDog CreateObject(String title,String description, double pric, double size) {
         return new Dog(counter.incrementAndGet(), title, description, pric,size);
     }
 

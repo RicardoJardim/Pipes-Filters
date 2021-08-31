@@ -1,12 +1,15 @@
 package com.architecture.services;
 
 import com.architecture.entities.Dog;
+import com.architecture.factory.AbstractDogFactory;
 import com.architecture.factory.DogFactory;
 import com.architecture.repository.IRepository;
+import org.springframework.stereotype.Service;
 import com.architecture.repository.DogRepository;
 import java.util.*;
 
-public class DogService {
+@Service
+public class DogService implements IDogService {
     private static final AbstractDogFactory factory = DogFactory.getInstance();
     private static final IRepository<Dog> repository = new DogRepository();
 
@@ -57,11 +60,11 @@ public class DogService {
     }
 
     
-    public Dog updateEntity(String title,String description, double pric, double size) throws Exception {
+    public Dog updateEntity(long id, String title,String description, double pric, double size) throws Exception {
         try{
             Dog cat = (Dog) factory.CreateObject(title, description, pric, size);
 
-            return repository.updateEntity(cat);
+            return repository.updateEntity(id,cat);
 
          }catch(Exception ex){
               throw new Exception(ex);

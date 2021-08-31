@@ -1,11 +1,15 @@
-public abstract class AbstractFactory{
+package com.architecture.factory;
 
-    public abstract IDog CreateObject(String title,String description, double pric));
+import com.architecture.entities.IDog;
 
-    public IDog CreateDog(String title,String description, double pric)
+public abstract class AbstractDogFactory{
+
+    public abstract IDog CreateObject(String title,String description, double pric,double size);
+
+    public IDog CreateDog(String title,String description, double pric,double size)
     {
         
-        IDog product = CreateObject(String title,String description, double pric);
+        IDog product = CreateObject(title,description, pric, size);
         // Now, use the product.
         System.out.println("Created Object "+ product.toString());
 

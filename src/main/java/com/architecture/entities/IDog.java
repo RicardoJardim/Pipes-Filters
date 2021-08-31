@@ -1,4 +1,6 @@
-public interface IGod {
+package com.architecture.entities;
+
+public interface IDog {
     public long getId();
 
     public String getTitle();

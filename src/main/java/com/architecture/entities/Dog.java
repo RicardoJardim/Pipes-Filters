@@ -52,7 +52,14 @@ public class Dog implements IDog {
     }
 
     public String toString(){
-        return "ID: " + this.id + "title: "+ this.title + "description: " + this.description+ "price: "+ this.price + "size: " + this.size;
+        final StringBuilder sb = new StringBuilder("City{");
+        sb.append("id=").append(this.id);
+        sb.append(", name='").append(this.title).append('\'');
+        sb.append(", description=").append(this.description);
+        sb.append(", price=").append(this.price);
+        sb.append(", size=").append(this.size);
+        sb.append('}');
+        return sb.toString();
     }
 
 }
