@@ -1,6 +1,6 @@
 package com.architecture.entities;
 
-public class Dog {
+public class Dog implements IDog {
     private final long id;
 	private String title;
     private String description;
@@ -50,4 +50,10 @@ public class Dog {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public String toString(){
+        return "ID: " + this.id + "title: "+ this.title + "description: " + this.description+ "price: "+ this.price + "size: " + this.size;
+    }
+
 }
+

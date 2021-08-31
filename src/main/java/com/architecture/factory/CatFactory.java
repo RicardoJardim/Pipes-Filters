@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.architecture.entities.Cat;
 
-public final class CatFactory  {
+public final class CatFactory extends AbstractCatFactory {
 
     private static volatile CatFactory instance;
 
@@ -29,7 +29,7 @@ public final class CatFactory  {
         }
     }
 
-    public Cat CreateObject(String title,String description, double pric) {
+    public ICat CreateObject(String title,String description, double pric) {
         return new Cat(counter.incrementAndGet(), title, description, pric);
     }
     

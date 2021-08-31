@@ -7,14 +7,14 @@ import com.architecture.repository.DogRepository;
 import java.util.*;
 
 public class DogService {
-    private static final DogFactory factory = DogFactory.getInstance();
+    private static final AbstractDogFactory factory = DogFactory.getInstance();
     private static final IRepository<Dog> repository = new DogRepository();
 
 
     public Dog addDog(String title,String description, double pric, double size) throws Exception{
 
         try{
-            Dog Dog = factory.CreateObject(title, description, pric, size);
+            Dog Dog = (Dog) factory.CreateObject(title, description, pric, size);
 
             return repository.addEntity(Dog);
 
@@ -59,7 +59,7 @@ public class DogService {
     
     public Dog updateEntity(String title,String description, double pric, double size) throws Exception {
         try{
-            Dog cat = factory.CreateObject(title, description, pric, size);
+            Dog cat = (Dog) factory.CreateObject(title, description, pric, size);
 
             return repository.updateEntity(cat);
 

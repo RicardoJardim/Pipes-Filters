@@ -7,14 +7,14 @@ import com.architecture.repository.IRepository;
 import java.util.*;
 
 public class CatService {
-    private static final CatFactory factory = CatFactory.getInstance();
+    private static final AbstractCatFactory factory = CatFactory.getInstance();
     private static final IRepository<Cat> repository = new CatRepository();
 
 
     public Cat addCat(String title,String description, double pric) throws Exception{
 
         try{
-            Cat cat = factory.CreateObject(title, description, pric);
+            Cat cat = (Cat) factory.CreateObject(title, description, pric);
 
             return repository.addEntity(cat);
 
@@ -59,7 +59,7 @@ public class CatService {
     
     public Cat updateCat(String title,String description, double pric) throws Exception {
         try{
-            Cat cat = factory.CreateObject(title, description, pric);
+            Cat cat = (Cat) factory.CreateObject(title, description, pric);
 
             return repository.updateEntity(cat);
 

@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.architecture.entities.Dog;
 
-public class DogFactory {
+public class DogFactory extends AbstractDogFactory {
 
     private static volatile DogFactory instance;
 

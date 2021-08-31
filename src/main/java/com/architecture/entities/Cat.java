@@ -1,6 +1,6 @@
 package com.architecture.entities;
 
-public class Cat  {
+public class Cat  implements ICat {
     private final long id;
 	private String title;
     private String description;
@@ -42,4 +42,7 @@ public class Cat  {
         this.price = price;
     }
 
+    public String toString(){
+        return "ID: " + this.id + "title: "+ this.title + "description: " + this.description+ "price: "+ this.price;
+    }
 }
