@@ -1,7 +1,5 @@
 package com.architecture.templateHttp;
 
-import java.util.HashMap;
-
 import org.springframework.http.HttpStatus;
 
 public class HttpNotFound extends TemplateHttp
