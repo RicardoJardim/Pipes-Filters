@@ -39,7 +39,7 @@ public class DogService implements IDogService {
     }
 
     
-    public Dog getEntity(long id) throws Exception {
+    public Dog getDog(long id) throws Exception {
         try{
 
             return repository.getEntity(id);
@@ -50,7 +50,7 @@ public class DogService implements IDogService {
     }
 
     
-    public List<Dog> getAllEntity() throws Exception {
+    public List<Dog> getAllDogs() throws Exception {
         try{
             return repository.getAllEntities();
             
@@ -60,7 +60,7 @@ public class DogService implements IDogService {
     }
 
     
-    public Dog updateEntity(long id, String title,String description, double pric, double size) throws Exception {
+    public Dog updateDog(long id, String title,String description, double pric, double size) throws Exception {
         try{
             Dog cat = (Dog) factory.CreateObject(title, description, pric, size);
 

@@ -7,10 +7,10 @@ public interface IDogService {
 
     public boolean removeDog(long id) throws Exception;
     
-    public Dog getEntity(long id) throws Exception;
+    public Dog getDog(long id) throws Exception;
 
-    public List<Dog> getAllEntity() throws Exception;
+    public List<Dog> getAllDogs() throws Exception;
 
-    public Dog updateEntity(long id, String title,String description, double pric, double size) throws Exception;
+    public Dog updateDog(long id, String title,String description, double pric, double size) throws Exception;
 
 }
