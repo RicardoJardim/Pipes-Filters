@@ -18,8 +18,8 @@ public class DogService implements IDogService {
     //TODO: Adicionar PipeLine
     //TODO: Verifica os valores se estão vazios, null ou formato incorreto incorretos caso sejam necessários retorna erro
     //TODO: Cria o objeto com os campos com os valores minimos aceitaveis (factory)
-    //TODO: Devolve o Objeto apos ser validado pela pipeline
-
+    //TODO: Devolve o Objeto apos ser validado pela pipeline ou entao executa uma ação
+    
     public Dog addDog(String title,String description, double pric, double size) throws Exception{
 
         try{

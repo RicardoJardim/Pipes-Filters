@@ -3,6 +3,11 @@ package com.architecture.Controllers;
 
 import java.util.List;
 
+import com.architecture.CrossCutting.HttpDecorators.HttpDecorator;
+import com.architecture.CrossCutting.HttpDecorators.HttpOkDecorator;
+import com.architecture.CrossCutting.HttpDecorators.Objects.AbstractHttpObject;
+import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectError;
+import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectOk;
 import com.architecture.CrossCutting.TemplateHttp.HttpNotFound;
 import com.architecture.CrossCutting.TemplateHttp.HttpOk;
 import com.architecture.CrossCutting.TemplateHttp.ObjectHttp;
@@ -27,6 +32,22 @@ public class CatController {
 
     @Autowired
     private ICatService service;
+
+    @GetMapping("/test")
+	public ResponseEntity<AbstractHttpObject> testDecorator() throws Exception {
+
+        HttpDecorator httpResponse;
+        try{
+            List<Cat> cat = service.getAllCats();
+            httpResponse = new HttpOkDecorator(new HttpObjectOk(cat));
+           
+        }catch(Exception ex){
+            httpResponse = new HttpOkDecorator(new HttpObjectError(400.0, ex.getMessage()));
+        }
+
+        return httpResponse.ReturnObjectMsg();
+	}
+    
 
     @GetMapping("")
 	public ResponseEntity<ObjectHttp> getAllCats() throws Exception {
@@ -60,7 +81,7 @@ public class CatController {
 
 	}
 
-    @PostMapping( value = "/create", consumes = "application/json", produces = "application/json")
+    @PostMapping( value = "", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ObjectHttp> createCat(@RequestBody Cat catHttp) throws Exception {
  
         TemplateHttp httpResponse = null;

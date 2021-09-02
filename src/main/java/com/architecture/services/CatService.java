@@ -20,7 +20,7 @@ public class CatService implements ICatService {
     //TODO: Adicionar PipeLine
     //TODO: Verifica os valores se estão vazios, null ou formato incorreto incorretos caso sejam necessários retorna erro
     //TODO: Cria o objeto com os campos com os valores minimos aceitaveis (factory)
-    //TODO: Devolve o Objeto apos ser validado pela pipeline
+    //TODO: Devolve o Objeto apos ser validado pela pipeline ou entao executa uma ação
 
     public Cat addCat(String title,String description, double pric) throws Exception{
 

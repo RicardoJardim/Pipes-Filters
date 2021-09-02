@@ -60,7 +60,7 @@ public class DogController {
 
 	}
 
-    @PostMapping( value = "/create", consumes = "application/json", produces = "application/json")
+    @PostMapping( value = "", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ObjectHttp> createDog(@RequestBody Dog dogHttp) throws Exception {
  
         TemplateHttp httpResponse = null;
