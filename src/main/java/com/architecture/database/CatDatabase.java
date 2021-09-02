@@ -1,9 +1,9 @@
-package com.architecture.database;
+package com.architecture.Database;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.architecture.entities.Cat;
+import com.architecture.Entities.Cat;
 
 public final class CatDatabase  {
     

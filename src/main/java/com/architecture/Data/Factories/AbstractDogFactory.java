@@ -1,6 +1,6 @@
-package com.architecture.factory;
+package com.architecture.Data.Factories;
 
-import com.architecture.entities.IDog;
+import com.architecture.Entities.IDog;
 
 public abstract class AbstractDogFactory{
 

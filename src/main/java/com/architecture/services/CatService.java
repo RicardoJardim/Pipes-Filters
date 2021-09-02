@@ -1,10 +1,10 @@
-package com.architecture.services;
+package com.architecture.Services;
 
-import com.architecture.entities.Cat;
-import com.architecture.factory.AbstractCatFactory;
-import com.architecture.factory.CatFactory;
-import com.architecture.repository.CatRepository;
-import com.architecture.repository.IRepository;
+import com.architecture.Entities.Cat;
+import com.architecture.Data.Factories.AbstractCatFactory;
+import com.architecture.Data.Factories.CatFactory;
+import com.architecture.Data.Repositories.CatRepository;
+import com.architecture.Data.Repositories.IRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,10 @@ public class CatService implements ICatService {
     
     private static final IRepository<Cat> repository = new CatRepository();
 
+    //TODO: Adicionar PipeLine
+    //TODO: Verifica os valores se estão vazios, null ou formato incorreto incorretos caso sejam necessários retorna erro
+    //TODO: Cria o objeto com os campos com os valores minimos aceitaveis (factory)
+    //TODO: Devolve o Objeto apos ser validado pela pipeline
 
     public Cat addCat(String title,String description, double pric) throws Exception{
 

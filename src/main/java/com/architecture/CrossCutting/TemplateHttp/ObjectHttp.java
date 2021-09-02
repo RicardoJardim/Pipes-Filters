@@ -1,4 +1,4 @@
-package com.architecture.templateHttp;
+package com.architecture.CrossCutting.TemplateHttp;
 
 public class ObjectHttp {
     private boolean success;

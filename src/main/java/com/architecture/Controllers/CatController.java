@@ -3,11 +3,12 @@ package com.architecture.Controllers;
 
 import java.util.List;
 
-import com.architecture.entities.Cat;
-import com.architecture.services.ICatService;
-import com.architecture.templateHttp.HttpNotFound;
-import com.architecture.templateHttp.HttpOk;
-import com.architecture.templateHttp.TemplateHttp;
+import com.architecture.CrossCutting.TemplateHttp.HttpNotFound;
+import com.architecture.CrossCutting.TemplateHttp.HttpOk;
+import com.architecture.CrossCutting.TemplateHttp.ObjectHttp;
+import com.architecture.CrossCutting.TemplateHttp.TemplateHttp;
+import com.architecture.Entities.Cat;
+import com.architecture.Services.ICatService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,11 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
-import com.architecture.templateHttp.ObjectHttp;
 @RestController
 @RequestMapping("/api/cat")
 public class CatController {
-    private static final String template = "Hello, %s!";
 
     @Autowired
     private ICatService service;
@@ -45,12 +44,12 @@ public class CatController {
 	}
     
     @GetMapping("/create")
-	public ResponseEntity<ObjectHttp> create(@RequestParam(value = "name", defaultValue = "World") String name) throws Exception {
+	public ResponseEntity<ObjectHttp> create(@RequestParam(value = "title") String title, @RequestParam(value = "desc") String desc,@RequestParam(value = "price") double price) throws Exception {
 
         TemplateHttp httpResponse = null;
         Object obj = null;
         try{
-            Cat cat = service.addCat( String.format(template, name), String.format(template, name), 1.2);
+            Cat cat = service.addCat( title,  desc, price);
             httpResponse = new HttpOk();
             obj = cat;
         }catch(Exception ex){

@@ -1,4 +1,4 @@
-package com.architecture.entities;
+package com.architecture.Entities;
 
 public class Dog implements IDog {
     private final long id;

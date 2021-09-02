@@ -1,4 +1,4 @@
-package com.architecture.templateHttp;
+package com.architecture.CrossCutting.TemplateHttp;
 
 import java.util.HashMap;
 

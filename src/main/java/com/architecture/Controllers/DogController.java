@@ -3,11 +3,12 @@ package com.architecture.Controllers;
 
 import java.util.List;
 
-import com.architecture.entities.Dog;
-import com.architecture.services.IDogService;
-import com.architecture.templateHttp.HttpNotFound;
-import com.architecture.templateHttp.HttpOk;
-import com.architecture.templateHttp.TemplateHttp;
+import com.architecture.CrossCutting.TemplateHttp.HttpNotFound;
+import com.architecture.CrossCutting.TemplateHttp.HttpOk;
+import com.architecture.CrossCutting.TemplateHttp.ObjectHttp;
+import com.architecture.CrossCutting.TemplateHttp.TemplateHttp;
+import com.architecture.Entities.Dog;
+import com.architecture.Services.IDogService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,11 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
-import com.architecture.templateHttp.ObjectHttp;
 @RestController
-@RequestMapping("/api/cat")
+@RequestMapping("/api/dog")
 public class DogController {
-    private static final String template = "Hello, %s!";
 
     @Autowired
     private IDogService service;
@@ -45,12 +44,12 @@ public class DogController {
 	}
     
     @GetMapping("/create")
-	public ResponseEntity<ObjectHttp> create(@RequestParam(value = "name", defaultValue = "World") String name) throws Exception {
+	public ResponseEntity<ObjectHttp> create(@RequestParam(value = "title") String title, @RequestParam(value = "desc") String desc,@RequestParam(value = "price") double price,@RequestParam(value = "price") double size ) throws Exception {
 
         TemplateHttp httpResponse = null;
         Object obj = null;
         try{
-            Dog dog = service.addDog( String.format(template, name), String.format(template, name), 1.2,1.2);
+            Dog dog = service.addDog( title, desc, price,size);
             httpResponse = new HttpOk();
             obj = dog;
         }catch(Exception ex){

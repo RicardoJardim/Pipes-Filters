@@ -1,14 +1,14 @@
-package com.architecture.templateHttp;
+package com.architecture.CrossCutting.TemplateHttp;
 
 import org.springframework.http.HttpStatus;
 
-public class HttpNotFound extends TemplateHttp
+public class HttpOk extends TemplateHttp
 {
     @Override
     protected void SetSuccess()
     {
-        Success = false;
-        Status = HttpStatus.NOT_FOUND;    
+        Success = true;
+        Status = HttpStatus.OK;    
     }
 
     @Override
@@ -16,6 +16,5 @@ public class HttpNotFound extends TemplateHttp
     {
         Data = aMsg;
     }
-
 
 }

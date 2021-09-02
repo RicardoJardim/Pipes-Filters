@@ -1,11 +1,13 @@
-package com.architecture.services;
+package com.architecture.Services;
 
-import com.architecture.entities.Dog;
-import com.architecture.factory.AbstractDogFactory;
-import com.architecture.factory.DogFactory;
-import com.architecture.repository.IRepository;
+import com.architecture.Entities.Dog;
+import com.architecture.Data.Factories.AbstractDogFactory;
+import com.architecture.Data.Factories.DogFactory;
+import com.architecture.Data.Repositories.DogRepository;
+import com.architecture.Data.Repositories.IRepository;
+
 import org.springframework.stereotype.Service;
-import com.architecture.repository.DogRepository;
+
 import java.util.*;
 
 @Service
@@ -13,6 +15,10 @@ public class DogService implements IDogService {
     private static final AbstractDogFactory factory = DogFactory.getInstance();
     private static final IRepository<Dog> repository = new DogRepository();
 
+    //TODO: Adicionar PipeLine
+    //TODO: Verifica os valores se estão vazios, null ou formato incorreto incorretos caso sejam necessários retorna erro
+    //TODO: Cria o objeto com os campos com os valores minimos aceitaveis (factory)
+    //TODO: Devolve o Objeto apos ser validado pela pipeline
 
     public Dog addDog(String title,String description, double pric, double size) throws Exception{
 

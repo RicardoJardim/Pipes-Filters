@@ -1,4 +1,4 @@
-package com.architecture.repository;
+package com.architecture.Data.Repositories;
 
 import java.util.List;
 

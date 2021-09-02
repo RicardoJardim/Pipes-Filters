@@ -1,9 +1,9 @@
-package com.architecture.factory;
+package com.architecture.Data.Factories;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.architecture.entities.Cat;
-import com.architecture.entities.ICat;
+import com.architecture.Entities.Cat;
+import com.architecture.Entities.ICat;
 
 public final class CatFactory extends AbstractCatFactory {
 

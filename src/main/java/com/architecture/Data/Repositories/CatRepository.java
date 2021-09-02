@@ -1,10 +1,10 @@
-package com.architecture.repository;
+package com.architecture.Data.Repositories;
 import java.util.List;
 
-import com.architecture.database.CatDatabase;
-import com.architecture.entities.Cat;
+import com.architecture.Database.CatDatabase;
+import com.architecture.Entities.Cat;
 
- import org.slf4j.Logger;
+import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
 
 public class CatRepository implements IRepository<Cat> {

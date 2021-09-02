@@ -1,8 +1,9 @@
-package com.architecture.factory;
+package com.architecture.Data.Factories;
 
 import java.util.concurrent.atomic.AtomicLong;
-import com.architecture.entities.Dog;
-import com.architecture.entities.IDog;
+
+import com.architecture.Entities.Dog;
+import com.architecture.Entities.IDog;
 
 public class DogFactory extends AbstractDogFactory {
 

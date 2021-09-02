@@ -1,8 +1,9 @@
-package com.architecture.database;
+package com.architecture.Database;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.architecture.entities.Dog;
+
+import com.architecture.Entities.Dog;
 
 public final class DogDatabase {
     

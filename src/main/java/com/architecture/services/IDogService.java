@@ -1,6 +1,7 @@
-package com.architecture.services;
-import com.architecture.entities.Dog;
+package com.architecture.Services;
 import java.util.*;
+
+import com.architecture.Entities.Dog;
 
 public interface IDogService {
     public Dog addDog(String title,String description, double pric, double size) throws Exception;

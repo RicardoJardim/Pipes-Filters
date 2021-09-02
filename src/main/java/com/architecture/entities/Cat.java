@@ -1,4 +1,4 @@
-package com.architecture.entities;
+package com.architecture.Entities;
 
 public class Cat  implements ICat {
     private final long id;

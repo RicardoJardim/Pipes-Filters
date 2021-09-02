@@ -1,4 +1,4 @@
-package com.architecture.templateHttp;
+package com.architecture.CrossCutting.TemplateHttp;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

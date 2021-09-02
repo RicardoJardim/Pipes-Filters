@@ -1,6 +1,6 @@
-package com.architecture.factory;
+package com.architecture.Data.Factories;
 
-import com.architecture.entities.ICat;
+import com.architecture.Entities.ICat;
 
 public abstract class AbstractCatFactory{
 

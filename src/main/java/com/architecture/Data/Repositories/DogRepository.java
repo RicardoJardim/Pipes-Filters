@@ -1,10 +1,10 @@
-package com.architecture.repository;
+package com.architecture.Data.Repositories;
 import java.util.List;
 
-import com.architecture.database.DogDatabase;
-import com.architecture.entities.Dog;
+import com.architecture.Database.DogDatabase;
+import com.architecture.Entities.Dog;
 
- import org.slf4j.Logger;
+import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
 
 public class DogRepository implements IRepository<Dog> {
