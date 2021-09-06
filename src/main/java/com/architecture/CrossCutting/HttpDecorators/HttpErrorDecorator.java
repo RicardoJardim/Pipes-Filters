@@ -11,6 +11,12 @@ public class HttpErrorDecorator extends HttpDecorator{
         setStatus(HttpStatus.BAD_REQUEST); 
     }
 
+    public HttpErrorDecorator(AbstractHttpObject source, HttpStatus status) {
+        super(source);
+        setSuccess();  
+        setStatus(status); 
+    }
+
     @Override
     public void setSuccess() {
         super.setSuccess(false);

@@ -11,6 +11,12 @@ public class HttpOkDecorator extends HttpDecorator{
         setStatus(HttpStatus.OK); 
     }
 
+    public HttpOkDecorator(AbstractHttpObject source,HttpStatus status) {
+        super(source);
+        setSuccess();  
+        setStatus(status); 
+    }
+
     @Override
     public void setSuccess() {
         super.setSuccess(true);
