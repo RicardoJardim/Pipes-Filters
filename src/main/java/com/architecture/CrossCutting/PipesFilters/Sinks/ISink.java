@@ -1,5 +1,7 @@
 package com.architecture.CrossCutting.PipesFilters.Sinks;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.architecture.CrossCutting.PipesFilters.Threads;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 
@@ -17,4 +19,5 @@ public abstract class ISink<T> extends Threads {
     }
 
     public abstract void takeFrom(IPipe<T> pipe);
+
 }

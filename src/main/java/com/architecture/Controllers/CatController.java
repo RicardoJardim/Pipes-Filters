@@ -1,27 +1,12 @@
 package com.architecture.Controllers;
 
-
 import java.util.List;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
-import com.architecture.CrossCutting.CustomExceptions;
 import com.architecture.CrossCutting.HttpDecorators.HttpDecorator;
 import com.architecture.CrossCutting.HttpDecorators.HttpOkDecorator;
 import com.architecture.CrossCutting.HttpDecorators.HttpErrorDecorator;
 import com.architecture.CrossCutting.HttpDecorators.Objects.AbstractHttpObject;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectError;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectOk;
-import com.architecture.CrossCutting.PipesFilters.DataInsert.Generator;
-import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
-import com.architecture.CrossCutting.PipesFilters.Pipes.Pipe;
-import com.architecture.CrossCutting.PipesFilters.Sinks.*;
-import com.architecture.CrossCutting.PipesFilters.Filters.*;
-import com.architecture.CrossCutting.PipesFilters.DataInsert.*;
 import com.architecture.Entities.Cat;
 import com.architecture.Services.ICatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,19 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
-// EXECUTE SOMETHING WITH THIS TYPE OF PIPELINE
-// IPipe<Cat> genToFilter = new Pipe<Cat>();
-// IPipe<Cat> filterToOut = new Pipe<Cat>();
-
-// Generator<Cat,Cat> generator = new CatGenerator(genToFilter,catHttp);
-// AbstractFilter<Cat,Cat> filter = new ValidationFilter(genToFilter, filterToOut);
-// ISink<Cat> sink = new SinkLogger(filterToOut);  
-
-// generator.start();
-// filter.start(); 
-// sink.start();
-
 @RestController
 @RequestMapping("/api/cat")
 public class CatController {
@@ -59,6 +31,7 @@ public class CatController {
 
     @GetMapping("")
 	public ResponseEntity<AbstractHttpObject> getAllCats() throws Exception {
+
         HttpDecorator httpResponse;
         try{
             List<Cat> cat = service.getAllCats();
