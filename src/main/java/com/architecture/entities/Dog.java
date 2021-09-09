@@ -1,12 +1,26 @@
 package com.architecture.Entities;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Dog implements IDog {
     private final long id;
+
+    @NotNull(message = "Title cannot be null")
+    @Size(min = 2, max = 200, message 
+      = "Title must be between 10 and 200 characters")
 	private String title;
+
+    @NotNull(message = "Description cannot be null")
+    @Size(min = 10, max = 200, message 
+      = "Description must be between 10 and 200 characters")
     private String description;
-    private double price;
+
+    @NotNull(message = "Price cannot be null")
     private double size;
-    
+
+    private double price;
+
 	public Dog(long id, String title, String description, double price, double size) {
         this.id = id;
         this.title = title;
