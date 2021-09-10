@@ -6,11 +6,11 @@ import com.architecture.CrossCutting.CustomExceptions;
 import com.architecture.CrossCutting.PipesFilters.Threads;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 
-public abstract class AbstractFilter<I, O> extends Threads {
-    protected IPipe<I> input;
-	protected IPipe<O> output;
+public abstract class AbstractFilter extends Threads {
+    protected IPipe<Object> input;
+	protected IPipe<Object> output;
 
-	public AbstractFilter(IPipe<I> input, IPipe<O> output) {
+	public AbstractFilter(IPipe<Object> input, IPipe<Object> output) {
 		this.input = input;
 		this.output = output;
 	}
@@ -18,9 +18,9 @@ public abstract class AbstractFilter<I, O> extends Threads {
 	@Override
 	public void run() {
 		try {
-            I in;
+            Object in;
             while ((in = input.nextOrNullIfEmptied()) != null) {
-				O out = transformOne(in);
+				Object out = transformOne(in);
 				output.put(out);
             }
         } catch (InterruptedException e) {
@@ -33,5 +33,5 @@ public abstract class AbstractFilter<I, O> extends Threads {
         output.closeForWriting();
 	}
 
-    protected abstract O transformOne(I in);
+    protected abstract Object transformOne(Object in);
 }

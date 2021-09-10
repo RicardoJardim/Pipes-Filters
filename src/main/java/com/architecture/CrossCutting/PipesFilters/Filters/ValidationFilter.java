@@ -12,27 +12,27 @@ import javax.validation.ValidatorFactory;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 import com.architecture.CrossCutting.CustomExceptions;
 
-public class ValidationFilter<I,O> extends AbstractFilter<I, I>{
+public class ValidationFilter extends AbstractFilter{
 
-    public ValidationFilter(IPipe<I> input, IPipe<I> output) {
+    public ValidationFilter(IPipe<Object> input, IPipe<Object> output) {
         super(input, output);
     }
 
     @Override
-    protected I transformOne(I in) throws CustomExceptions {
+    protected Object transformOne(Object in) throws CustomExceptions {
         
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
-        Set<ConstraintViolation<I>> violations = validator.validate(in);
+        Set<ConstraintViolation<Object>> violations = validator.validate(in);
 
         List<String> erros = new ArrayList<String>();
 
-        for (ConstraintViolation<I> violation : violations) {
-            System.out.println(violation.getMessage()); 
+        for (ConstraintViolation<Object> violation : violations) {
             erros.add(violation.getMessage());
         }
         if(erros.size() != 0){
-            throw new CustomExceptions(erros);
+            return erros;
+        //    throw new CustomExceptions(erros);
         }
 
         return in;

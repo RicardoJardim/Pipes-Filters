@@ -1,12 +1,24 @@
 package com.architecture.Controllers;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import com.architecture.CrossCutting.HttpDecorators.HttpDecorator;
 import com.architecture.CrossCutting.HttpDecorators.HttpOkDecorator;
 import com.architecture.CrossCutting.HttpDecorators.HttpErrorDecorator;
 import com.architecture.CrossCutting.HttpDecorators.Objects.AbstractHttpObject;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectError;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectOk;
+import com.architecture.CrossCutting.PipesFilters.DataInsert.Generator;
+import com.architecture.CrossCutting.PipesFilters.DataInsert.CatGenerator;
+import com.architecture.CrossCutting.PipesFilters.Filters.AbstractFilter;
+import com.architecture.CrossCutting.PipesFilters.Filters.ValidationFilter;
+import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
+import com.architecture.CrossCutting.PipesFilters.Pipes.Pipe;
+import com.architecture.CrossCutting.PipesFilters.Sinks.ISink;
+import com.architecture.CrossCutting.PipesFilters.Sinks.SinkLogger;
 import com.architecture.Entities.Cat;
 import com.architecture.Services.ICatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.architecture.CrossCutting.CustomExceptions;
 
 @RestController
 @RequestMapping("/api/cat")
@@ -43,6 +56,53 @@ public class CatController {
 
         return httpResponse.ReturnObjectMsg();
 	}
+    // IPipe<Cat> genToFilter = new Pipe<Cat>();
+// IPipe<Cat> filterToOut = new Pipe<Cat>();
+
+// Generator<Cat,Cat> generator = new CatGenerator(genToFilter,catHttp);
+// AbstractFilter<Cat,Cat> filter = new ValidationFilter(genToFilter, filterToOut);
+// ISink<Cat> sink = new SinkLogger(filterToOut);  
+
+// generator.start();
+// filter.start(); 
+// sink.start();
+
+    @GetMapping("/test")
+    public ResponseEntity<AbstractHttpObject> test() throws Exception {
+
+        
+        HttpDecorator httpResponse;
+        try{
+
+            IPipe<Object> genToFilter = new Pipe<Object>();
+            IPipe<Object> filterToOut = new Pipe<Object>();
+
+            Cat catHttp = new Cat(1, "t", "description", 1);
+
+            Generator<Object,Cat> generator = new CatGenerator(genToFilter,catHttp);
+            AbstractFilter filter = new ValidationFilter(genToFilter, filterToOut);
+            
+            ISink<Cat> sink = new SinkLogger(filterToOut);  
+            generator.start();
+            filter.start(); 
+
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            Future<Object> future = executorService.submit(sink);
+            Object result = future.get();
+            
+            
+
+            httpResponse = new HttpOkDecorator(new HttpObjectOk(result));
+        
+        }catch(CustomExceptions ex){
+            System.out.println(ex);
+            httpResponse = new HttpErrorDecorator(new HttpObjectError(400.0, ex.getMessage()),HttpStatus.BAD_REQUEST);
+        }catch(Exception ex){
+            httpResponse = new HttpErrorDecorator(new HttpObjectError(400.0, ex.getMessage()),HttpStatus.BAD_REQUEST);
+        }
+
+        return httpResponse.ReturnObjectMsg();
+    }
     
     @GetMapping("/create")
 	public ResponseEntity<AbstractHttpObject> create(@RequestParam(value = "title") String title, @RequestParam(value = "desc") String desc,@RequestParam(value = "price") double price) throws Exception {

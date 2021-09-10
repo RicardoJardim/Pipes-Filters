@@ -27,10 +27,7 @@ public class Pipe<T> implements IPipe<T> {
     }
 
     @Override
-    // not using next() and willHaveNext() because a currently-empty pipe might be
-    //  closed after the willHaveNext() check, causing next() to wait forever
-    // not using an exception because would require consumers to write unidiomatic `while(true)`
-    // not using an Option because there is no standard Option and reimplementing it is too annoying
+
     public synchronized T nextOrNullIfEmptied() throws InterruptedException {
         if (hasReadLastObject) {
             throw new NoSuchElementException("pipe is closed and empty; will never contain any further values");
