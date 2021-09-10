@@ -1,9 +1,8 @@
 package com.architecture.CrossCutting.PipesFilters.DataInsert;
 
-import com.architecture.CrossCutting.PipesFilters.Threads;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 
-public abstract class Generator<T,I> extends Threads {
+public abstract class Generator<T,I> implements Runnable  {
     protected IPipe<T> output;
     protected I in;
 

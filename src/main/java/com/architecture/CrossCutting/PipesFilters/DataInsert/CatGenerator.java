@@ -13,6 +13,5 @@ public class CatGenerator extends Generator<Object,Cat> {
         pipe.put(in);
         pipe.closeForWriting();
         System.out.println("generator finished");
-        
     }
 }

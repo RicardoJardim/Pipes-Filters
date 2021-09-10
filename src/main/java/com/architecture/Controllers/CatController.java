@@ -1,6 +1,10 @@
 package com.architecture.Controllers;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -33,6 +37,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.concurrent.ListenableFuture;
+import java.util.concurrent.ExecutionException;
+
 import com.architecture.CrossCutting.CustomExceptions;
 
 @RestController
@@ -56,18 +63,8 @@ public class CatController {
 
         return httpResponse.ReturnObjectMsg();
 	}
-    // IPipe<Cat> genToFilter = new Pipe<Cat>();
-// IPipe<Cat> filterToOut = new Pipe<Cat>();
 
-// Generator<Cat,Cat> generator = new CatGenerator(genToFilter,catHttp);
-// AbstractFilter<Cat,Cat> filter = new ValidationFilter(genToFilter, filterToOut);
-// ISink<Cat> sink = new SinkLogger(filterToOut);  
-
-// generator.start();
-// filter.start(); 
-// sink.start();
-
-    @GetMapping("/test")
+    @GetMapping(value = "/test", produces = "application/json")
     public ResponseEntity<AbstractHttpObject> test() throws Exception {
 
         
@@ -77,27 +74,37 @@ public class CatController {
             IPipe<Object> genToFilter = new Pipe<Object>();
             IPipe<Object> filterToOut = new Pipe<Object>();
 
-            Cat catHttp = new Cat(1, "t", "description", 1);
+            Cat catHttp = new Cat(1, "t", null, 1);
 
             Generator<Object,Cat> generator = new CatGenerator(genToFilter,catHttp);
-            AbstractFilter filter = new ValidationFilter(genToFilter, filterToOut);
-            
+            AbstractFilter filter = new ValidationFilter(genToFilter, filterToOut);    
             ISink<Cat> sink = new SinkLogger(filterToOut);  
-            generator.start();
-            filter.start(); 
+     
+            ExecutorService executorService = Executors.newFixedThreadPool(10);
+            executorService.execute(generator);
+            
+            executorService.submit(filter).get();
 
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
             Future<Object> future = executorService.submit(sink);
+
             Object result = future.get();
-            
-            
+
+            executorService.shutdown();
 
             httpResponse = new HttpOkDecorator(new HttpObjectOk(result));
-        
+        }
+        catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                httpResponse = new HttpErrorDecorator(new HttpObjectError(400.0, cause2.getMyStrings()),HttpStatus.BAD_REQUEST);  
+            }else{
+                httpResponse = new HttpErrorDecorator(new HttpObjectError(400.0, cause.getMessage()),HttpStatus.BAD_REQUEST);  
+            }
         }catch(CustomExceptions ex){
-            System.out.println(ex);
-            httpResponse = new HttpErrorDecorator(new HttpObjectError(400.0, ex.getMessage()),HttpStatus.BAD_REQUEST);
+            httpResponse = new HttpErrorDecorator(new HttpObjectError(400.0, ex.getMyStrings()),HttpStatus.BAD_REQUEST);
         }catch(Exception ex){
+            System.out.println(ex.getClass());
             httpResponse = new HttpErrorDecorator(new HttpObjectError(400.0, ex.getMessage()),HttpStatus.BAD_REQUEST);
         }
 
@@ -123,13 +130,6 @@ public class CatController {
     @PostMapping( value = "", consumes = "application/json", produces = "application/json")
     public ResponseEntity<AbstractHttpObject> createCat(@RequestBody Cat catHttp) throws Exception {
  
-        // ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        // Validator validator = factory.getValidator();
-        // Set<ConstraintViolation<Cat>> violations = validator.validate(catHttp);
-        // for (ConstraintViolation<Cat> violation : violations) {
-        //     System.out.println(violation.getMessage()); 
-        // }
-
         HttpDecorator httpResponse;
         try{
 

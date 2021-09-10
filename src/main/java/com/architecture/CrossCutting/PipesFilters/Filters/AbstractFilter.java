@@ -1,12 +1,13 @@
 package com.architecture.CrossCutting.PipesFilters.Filters;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 import com.architecture.CrossCutting.CustomExceptions;
-import com.architecture.CrossCutting.PipesFilters.Threads;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 
-public abstract class AbstractFilter extends Threads {
+public abstract class AbstractFilter implements Callable<Object> {
     protected IPipe<Object> input;
 	protected IPipe<Object> output;
 
@@ -15,23 +16,30 @@ public abstract class AbstractFilter extends Threads {
 		this.output = output;
 	}
 
-	@Override
-	public void run() {
+    @Override
+	public Object call() throws Exception {
+		
+		Object out = null;
 		try {
-            Object in;
+			Object in;
             while ((in = input.nextOrNullIfEmptied()) != null) {
-				Object out = transformOne(in);
+				out = transformOne(in);
 				output.put(out);
+				return out;
             }
         } catch (InterruptedException e) {
-            System.out.println(e);
-            e.printStackTrace();
-            return;
+            System.out.println(e.getMessage());
+            throw e;
         }catch(CustomExceptions erros){
-			throw new RuntimeException(erros.getMessage());
+			System.out.println(erros.getMessage());
+			throw erros;
 		}
-        output.closeForWriting();
-	}
+		output.closeForWriting();
+		Thread.currentThread().interrupt();
+		return out;
 
-    protected abstract Object transformOne(Object in);
+    }
+
+    protected abstract Object transformOne(Object in) throws CustomExceptions;
+
 }

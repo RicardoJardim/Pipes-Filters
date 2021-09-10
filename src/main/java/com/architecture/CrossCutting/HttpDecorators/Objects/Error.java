@@ -2,19 +2,19 @@ package com.architecture.CrossCutting.HttpDecorators.Objects;
 
 public class Error {
     private Double code;
-    private String message;
+    private Object message;
 
-    public Error(Double code,String message){
+    public Error(Double code,Object message){
         this.code = code;
         this.message = message;
     }
     public Double getCode() {
         return code;
     }
-    public String getMessage() {
+    public Object getMessage() {
         return message;
     }
-    public void setMessage(String message) {
+    public void setMessage(Object message) {
         this.message = message;
     }
     public void setCode(Double code) {

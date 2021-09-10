@@ -4,7 +4,7 @@ public class HttpObjectError extends AbstractHttpObject {
 
     private Error error;
 
-    public HttpObjectError(Double code, String message){
+    public HttpObjectError(Double code, Object message){
         super.setSuccess(false);
         this.setError(new Error(code, message));
     }

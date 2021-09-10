@@ -1,5 +1,6 @@
 package com.architecture.CrossCutting.PipesFilters.Filters;
 
+import java.text.NumberFormat.Style;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,8 +32,7 @@ public class ValidationFilter extends AbstractFilter{
             erros.add(violation.getMessage());
         }
         if(erros.size() != 0){
-            return erros;
-        //    throw new CustomExceptions(erros);
+            throw new CustomExceptions(erros);
         }
 
         return in;
