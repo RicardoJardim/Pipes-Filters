@@ -9,6 +9,8 @@ For this example Pipes and Filters architecture was used to filter and validate 
 ## Layered architecture
 
 One of the powerful features of the layered architecture pattern is the separation of concerns among components. Components within a specific layer deal only with logic that pertains to that layer. For example, components in the data layer deal only with data logic, whereas components residing in the business layer deal only with business logic. This type of component classification makes it easy to build effective roles and responsibility models into your architecture, and also makes it easy to develop, test, govern, and maintain applications using this architecture pattern due to well-defined component interfaces and limited component scope.
+
+
 Controllers
 
 - Comunication with the outside world
