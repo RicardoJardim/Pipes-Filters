@@ -1,12 +1,10 @@
 package com.architecture.CrossCutting.PipesFilters.Sinks;
 
-import java.util.concurrent.Future;
-
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 
-public class SinkLogger<I> extends ISink<I> {
+public class SinkObject<I> extends ISink<I> {
     
-    public SinkLogger(IPipe<I> input) {
+    public SinkObject(IPipe<I> input) {
         super(input);
     }
 

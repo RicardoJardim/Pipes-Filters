@@ -4,6 +4,8 @@ import java.util.*;
 import com.architecture.Entities.Cat;
 
 public interface ICatService {
+    public Cat addCat(Cat cat) throws Exception;
+
     public Cat addCat(String title,String description, double pric) throws Exception;
 
     public boolean removeCat(long id) throws Exception;
@@ -12,5 +14,5 @@ public interface ICatService {
 
     public List<Cat> getAllCats() throws Exception;
 
-    public Cat updateCat(long id, String title,String description, double pric) throws Exception;
+    public Cat updateCat(long id, Cat cat) throws Exception;
 }

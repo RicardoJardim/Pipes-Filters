@@ -56,10 +56,10 @@ public class Cat  implements ICat {
     }
 
     public String toString(){
-        final StringBuilder sb = new StringBuilder("City{");
+        final StringBuilder sb = new StringBuilder("Cat{");
         sb.append("id=").append(this.id);
-        sb.append(", name='").append(this.title).append('\'');
-        sb.append(", description=").append(this.description);
+        sb.append(", name='").append(this.title).append("'");
+        sb.append(", description=").append(this.description).append("'");
         sb.append(", price=").append(this.price);
         sb.append('}');
         return sb.toString();

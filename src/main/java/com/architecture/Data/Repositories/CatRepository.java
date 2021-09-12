@@ -16,7 +16,7 @@ public class CatRepository implements IRepository<Cat> {
     public Cat addEntity(Cat cat) throws Exception {
 
         log.info("Adding Cat Entity to database: " + database.getClass().getName() + " with entity: "+ cat.toString());
-         
+                
         boolean check = database.getCatList().add(cat);
         if(check){
             return cat;
@@ -44,7 +44,7 @@ public class CatRepository implements IRepository<Cat> {
             }
         }else{
             log.info("Error finding Cat Entity to database: " + database.getClass().getName() + " with entity: "+ String.valueOf(id));
-            throw new Exception("Error finding cat");
+            throw new Exception("Was not possible to find a Cat with the id of " + id);
         }
 
         
@@ -62,7 +62,7 @@ public class CatRepository implements IRepository<Cat> {
         }
         else{
             log.info("Error adding Cat Entity to database: " + database.getClass().getName() + " with id: " + String.valueOf(id));
-            throw new Exception("Did not find cat with id: " + String.valueOf(id) );
+            throw new Exception("Was not possible to find a Cat with the id of " + id);
         }
     }
 
@@ -89,8 +89,12 @@ public class CatRepository implements IRepository<Cat> {
            
         }else{
             log.info("Error finding Cat Entity to database: " + database.getClass().getName() + " with entity: "+ String.valueOf(cat.getId()));
-            throw new Exception("Error finding cat");
+            throw new Exception("Was not possible to find a Cat with the id of " + id);
         }
+    }
 
+    @Override
+    public long getNextEntityID(){
+        return database.incrementAndGetCounter();
     }
 }

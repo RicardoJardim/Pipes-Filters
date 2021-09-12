@@ -2,19 +2,15 @@ package com.architecture.CrossCutting.PipesFilters.DataInsert;
 
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 
-public abstract class Generator<T,I> implements Runnable  {
-    protected IPipe<T> output;
-    protected I in;
-
-    public Generator(IPipe<T> output, I in) {
-        this.output = output;
-        this.in = in;
+public class Generator<I> extends AbstractGenerator<I,I> {
+    public Generator(IPipe<I> output, I in) {
+        super(output, in);
     }
 
     @Override
-    public void run() {
-        generateInto(output, in);
+    public void generateInto(IPipe<I> pipe, I in) {
+        pipe.put(in);
+        pipe.closeForWriting();
+        System.out.println("generator finished");
     }
-
-    public abstract void generateInto(IPipe<T> pipe , I in);
 }

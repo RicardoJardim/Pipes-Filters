@@ -1,6 +1,5 @@
 package com.architecture.CrossCutting.PipesFilters.Filters;
 
-import java.text.NumberFormat.Style;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -10,12 +9,12 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import com.architecture.CrossCutting.PipesFilters.CustomExceptions;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
-import com.architecture.CrossCutting.CustomExceptions;
 
-public class ValidationFilter extends AbstractFilter{
+public class ValidationFilter<I,T> extends AbstractFilter<I,T>{
 
-    public ValidationFilter(IPipe<Object> input, IPipe<Object> output) {
+    public ValidationFilter(IPipe<I> input, IPipe<T> output) {
         super(input, output);
     }
 

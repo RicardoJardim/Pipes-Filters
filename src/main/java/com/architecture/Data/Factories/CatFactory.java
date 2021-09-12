@@ -1,15 +1,11 @@
 package com.architecture.Data.Factories;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.architecture.Entities.Cat;
 import com.architecture.Entities.ICat;
 
 public final class CatFactory extends AbstractCatFactory {
 
     private static volatile CatFactory instance;
-
-    private static final AtomicLong counter = new AtomicLong();
    
     private CatFactory() {
 
@@ -30,9 +26,16 @@ public final class CatFactory extends AbstractCatFactory {
         }
     }
 
-    public ICat CreateObject(String title,String description, double pric) {
-        return new Cat(counter.incrementAndGet(), title, description, pric);
+    public ICat CreateObject(String title,String description, double price) {
+
+        return new Cat(0, title, description, price);
     }
+
+    public ICat CreateObject(long id, String title,String description, double price) {
+
+        return new Cat(id, title, description, price);
+    }
+    
     
 }
 

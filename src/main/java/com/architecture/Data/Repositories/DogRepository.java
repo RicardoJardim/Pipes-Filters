@@ -34,13 +34,17 @@ public class DogRepository implements IRepository<Dog> {
 
         Dog dog = database.getDogList().stream().filter(dogs -> id == dogs.getId()).findFirst().orElse(null);
 
-        boolean check = database.getDogList().remove(dog);
-        if(check){
-            return check;
-        }
-        else{
-            log.info("Error adding Cat Entity to database: " + database.getClass().getName() + " with id: "+ String.valueOf(id));
-            throw new Exception("Error insertiong cat");
+        if(dog != null){
+            boolean check = database.getDogList().remove(dog);
+            if(check){
+                return check;
+            }else{
+                log.info("Error removing Dog Entity to database: " + database.getClass().getName() + " with entity: "+ dog.toString());
+                throw new Exception("Error removing Dog");
+            }
+        }else{
+            log.info("Error finding Dog Entity to database: " + database.getClass().getName() + " with entity: "+ String.valueOf(id));
+            throw new Exception("Was not possible to find a Dog with the id of " + id);
         }
     }
 
@@ -55,7 +59,7 @@ public class DogRepository implements IRepository<Dog> {
         }
         else{
             log.info("Error adding Dog Entity to database: " + database.getClass().getName() + " with id: " + String.valueOf(id));
-            throw new Exception("Did not find Dog with id: " + String.valueOf(id) );
+            throw new Exception("Was not possible to find a Dog with the id of: " + id );
         }
     }
 
@@ -72,7 +76,7 @@ public class DogRepository implements IRepository<Dog> {
     public Dog updateEntity(long id, Dog dog) throws Exception {
         log.info("Updating Dog Entity in database: " + database.getClass().getName() + " with entity: "+ dog.toString() );
         
-        Dog findDog = database.getDogList().stream().filter(cats -> id == cats.getId()).findFirst().orElse(null);
+        Dog findDog = database.getDogList().stream().filter(dogs -> id == dogs.getId()).findFirst().orElse(null);
 
         if(findDog != null){
             int index = database.getDogList().indexOf(findDog);
@@ -81,10 +85,14 @@ public class DogRepository implements IRepository<Dog> {
             return newDog;
            
         }else{
-            log.info("Error finding Cat Entity to database: " + database.getClass().getName() + " with entity: "+ dog);
-            throw new Exception("Error finding cat");
+            log.info("Error finding Dog Entity to database: " + database.getClass().getName() + " with entity: "+ dog);
+            throw new Exception("Was not possible to find a Dog with the id of: " + id);
         }
     }
 
+    @Override
+    public long getNextEntityID(){
+        return database.incrementAndGetCounter();
+    }
 
 }

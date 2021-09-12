@@ -1,6 +1,9 @@
 package com.architecture.Services;
 
 import com.architecture.Entities.Dog;
+import com.architecture.CrossCutting.PipesFilters.CustomExceptions;
+import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateDog;
+import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateObject;
 import com.architecture.Data.Factories.AbstractDogFactory;
 import com.architecture.Data.Factories.DogFactory;
 import com.architecture.Data.Repositories.DogRepository;
@@ -9,72 +12,148 @@ import com.architecture.Data.Repositories.IRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class DogService implements IDogService {
     private static final AbstractDogFactory factory = DogFactory.getInstance();
     private static final IRepository<Dog> repository = new DogRepository();
 
-    //TODO: Adicionar PipeLine
-    //TODO: Verifica os valores se estão vazios, null ou formato incorreto incorretos caso sejam necessários retorna erro
-    //TODO: Cria o objeto com os campos com os valores minimos aceitaveis (factory)
-    //TODO: Devolve o Objeto apos ser validado pela pipeline ou entao executa uma ação
-    
-    public Dog addDog(String title,String description, double pric, double size) throws Exception{
 
+    @Override
+    public Dog addDog(Dog dogHttp) throws Exception {
         try{
-            Dog Dog = (Dog) factory.CreateObject(title, description, pric, size);
+            long newID = repository.getNextEntityID();
 
-            return repository.addEntity(Dog);
+            Dog dog =  verifyDogPipeline(newID, dogHttp, new ValidateDog());
 
-        }catch(Exception ex){
-             throw new Exception(ex);
+            return repository.addEntity(dog);
+
+        }catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                throw cause2;
+            }else{
+                throw ex;
+            }
+        }
+        catch(Exception ex){
+             throw ex;
         }
     }
 
-    
+    public Dog addDog(String title,String description, double pric, double size) throws Exception{
+
+        try{
+            long newID = repository.getNextEntityID();
+
+            Dog dogTemp = (Dog) factory.CreateObject(newID,title, description, pric, size);
+
+            Dog dog =  verifyDogPipeline(newID,dogTemp, new ValidateDog());
+
+            return repository.addEntity(dog);
+
+        }catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                throw cause2;
+            }else{
+                throw ex;
+            }
+        }
+        catch(Exception ex){
+             throw ex;
+        }
+    }
+
+    @Override
+    public Dog updateDog(long id, Dog dogHttp) throws Exception {
+        try{
+
+            Dog dog =  verifyDogPipeline(id,dogHttp, new ValidateDog());
+
+            return repository.updateEntity(id,dog);
+
+         }catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                throw cause2;
+            }else{
+                throw ex;
+            }
+        }
+        catch(Exception ex){
+             throw ex;
+        }
+    }   
+
+    @Override
     public boolean removeDog(long id) throws Exception {
          
         try{
 
             return repository.removeEntity(id);
 
-         }catch(Exception ex){
-              throw new Exception(ex);
-         }
+         }catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                throw cause2;
+            }else{
+                throw ex;
+            }
+        }
+        catch(Exception ex){
+             throw ex;
+        }
     }
 
-    
+    @Override
     public Dog getDog(long id) throws Exception {
         try{
 
             return repository.getEntity(id);
             
-         }catch(Exception ex){
-              throw new Exception(ex);
-         }
+         }catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                throw cause2;
+            }else{
+                throw ex;
+            }
+        }
+        catch(Exception ex){
+             throw ex;
+        }
     }
 
-    
+    @Override
     public List<Dog> getAllDogs() throws Exception {
         try{
             return repository.getAllEntities();
             
-         }catch(Exception ex){
-              throw new Exception(ex);
-         }
+         }catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                throw cause2;
+            }else{
+                throw ex;
+            }
+        }
+        catch(Exception ex){
+             throw ex;
+        }
     }
-
     
-    public Dog updateDog(long id, String title,String description, double pric, double size) throws Exception {
-        try{
-            Dog cat = (Dog) factory.CreateObject(title, description, pric, size);
-
-            return repository.updateEntity(id,cat);
-
-         }catch(Exception ex){
-              throw new Exception(ex);
-         }
+    private Dog verifyDogPipeline(long id, Dog catHttp, ValidateObject<Dog> validateMethod) throws Exception{
+  
+        return (Dog) validateMethod.execute(id, catHttp); 
     }
 
+ 
 }

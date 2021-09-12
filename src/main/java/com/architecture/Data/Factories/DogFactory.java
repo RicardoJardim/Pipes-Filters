@@ -1,15 +1,11 @@
 package com.architecture.Data.Factories;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.architecture.Entities.Dog;
 import com.architecture.Entities.IDog;
 
 public class DogFactory extends AbstractDogFactory {
 
     private static volatile DogFactory instance;
-
-    private static final AtomicLong counter = new AtomicLong();
    
     private DogFactory() {
 
@@ -30,8 +26,12 @@ public class DogFactory extends AbstractDogFactory {
     }
 
     public IDog CreateObject(String title,String description, double pric, double size) {
-        return new Dog(counter.incrementAndGet(), title, description, pric,size);
+        return new Dog(0, title, description, pric,size);
     }
 
+    public IDog CreateObject(long id, String title,String description, double price, double size) {
+
+        return new Dog(id, title, description, price, size);
+    }
 }
 
