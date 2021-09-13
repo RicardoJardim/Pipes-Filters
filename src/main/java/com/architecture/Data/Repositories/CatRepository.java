@@ -62,7 +62,7 @@ public class CatRepository implements IRepository<Cat> {
             return cat;
         }
         else{
-            log.info("Error adding Cat Entity to database: " + database.getClass().getName() + " with id: " + String.valueOf(id));
+            log.info("Error finding Cat Entity to database: " + database.getClass().getName() + " with id: " + String.valueOf(id));
             throw new Exception("Was not possible to find a Cat with the id of " + id);
         }
     }

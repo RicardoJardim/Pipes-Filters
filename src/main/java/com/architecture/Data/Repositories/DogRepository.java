@@ -60,7 +60,7 @@ public class DogRepository implements IRepository<Dog> {
             return Dog;
         }
         else{
-            log.info("Error adding Dog Entity to database: " + database.getClass().getName() + " with id: " + String.valueOf(id));
+            log.info("Error finding Dog Entity to database: " + database.getClass().getName() + " with id: " + String.valueOf(id));
             throw new Exception("Was not possible to find a Dog with the id of: " + id );
         }
     }
