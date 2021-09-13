@@ -16,7 +16,8 @@ public class CatRepository implements IRepository<Cat> {
     public Cat addEntity(Cat cat) throws Exception {
 
         log.info("Adding Cat Entity to database: " + database.getClass().getName() + " with entity: "+ cat.toString());
-                
+        
+        cat.setId(database.incrementAndGetCounter());
         boolean check = database.getCatList().add(cat);
         if(check){
             return cat;
@@ -93,8 +94,4 @@ public class CatRepository implements IRepository<Cat> {
         }
     }
 
-    @Override
-    public long getNextEntityID(){
-        return database.incrementAndGetCounter();
-    }
 }

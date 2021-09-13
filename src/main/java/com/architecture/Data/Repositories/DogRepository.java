@@ -16,7 +16,9 @@ public class DogRepository implements IRepository<Dog> {
     public Dog addEntity(Dog Dog) throws Exception {
 
         log.info("Adding Dog Entity to database: " + database.getClass().getName() + " with entity: "+ Dog.toString());
-         
+        
+        Dog.setId(database.incrementAndGetCounter());
+
         boolean check = database.getDogList().add(Dog);
         if(check){
             return Dog;
@@ -88,11 +90,6 @@ public class DogRepository implements IRepository<Dog> {
             log.info("Error finding Dog Entity to database: " + database.getClass().getName() + " with entity: "+ dog);
             throw new Exception("Was not possible to find a Dog with the id of: " + id);
         }
-    }
-
-    @Override
-    public long getNextEntityID(){
-        return database.incrementAndGetCounter();
     }
 
 }

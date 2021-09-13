@@ -23,9 +23,8 @@ public class DogService implements IDogService {
     @Override
     public Dog addDog(Dog dogHttp) throws Exception {
         try{
-            long newID = repository.getNextEntityID();
 
-            Dog dog =  verifyDogPipeline(newID, dogHttp, new ValidateDog());
+            Dog dog =  verifyDogPipeline(dogHttp, new ValidateDog());
 
             return repository.addEntity(dog);
 
@@ -46,11 +45,10 @@ public class DogService implements IDogService {
     public Dog addDog(String title,String description, double pric, double size) throws Exception{
 
         try{
-            long newID = repository.getNextEntityID();
 
-            Dog dogTemp = (Dog) factory.CreateObject(newID,title, description, pric, size);
+            Dog dogTemp = (Dog) factory.CreateObject(title, description, pric, size);
 
-            Dog dog =  verifyDogPipeline(newID,dogTemp, new ValidateDog());
+            Dog dog =  verifyDogPipeline(dogTemp, new ValidateDog());
 
             return repository.addEntity(dog);
 
@@ -154,6 +152,12 @@ public class DogService implements IDogService {
   
         return (Dog) validateMethod.execute(id, catHttp); 
     }
+
+    private Dog verifyDogPipeline( Dog catHttp, ValidateObject<Dog> validateMethod) throws Exception{
+  
+        return (Dog) validateMethod.execute(0, catHttp); 
+    }
+
 
  
 }

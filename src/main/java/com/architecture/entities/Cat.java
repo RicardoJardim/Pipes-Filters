@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 
 public class Cat  implements ICat {
-    private final long id;
+    private long id;
 
     @NotNull(message = "Title cannot be null")
     @Size(min = 2, max = 200, message 
@@ -29,6 +29,10 @@ public class Cat  implements ICat {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -25,9 +25,8 @@ public class CatService implements ICatService {
     @Override
     public Cat addCat(Cat catHttp) throws Exception {
         try{
-            long newID = repository.getNextEntityID();
 
-            Cat cat =  verifyCatPipeline(newID,catHttp, new ValidateCat());
+            Cat cat =  verifyCatPipeline(catHttp, new ValidateCat());
 
             return repository.addEntity(cat);
 
@@ -49,11 +48,10 @@ public class CatService implements ICatService {
     public Cat addCat(String title,String description, double pric) throws Exception{
 
         try{
-            long newID = repository.getNextEntityID();
 
-            Cat catTemp = (Cat) factory.CreateObject(newID, title, description, pric);
+            Cat catTemp = (Cat) factory.CreateObject( title, description, pric);
 
-            Cat cat =  verifyCatPipeline(newID,catTemp, new ValidateCat());
+            Cat cat =  verifyCatPipeline(catTemp, new ValidateCat());
 
             return repository.addEntity(cat);
 
@@ -157,6 +155,10 @@ public class CatService implements ICatService {
     
     private Cat verifyCatPipeline(long id, Cat catHttp, ValidateObject<Cat> validateMethod) throws Exception{  
         return (Cat) validateMethod.execute(id, catHttp); 
+    }
+
+    private Cat verifyCatPipeline(Cat catHttp, ValidateObject<Cat> validateMethod) throws Exception{  
+        return (Cat) validateMethod.execute(0, catHttp); 
     }
 
 

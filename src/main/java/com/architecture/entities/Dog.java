@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Dog implements IDog {
-    private final long id;
+    private long id;
 
     @NotNull(message = "Title cannot be null")
     @Size(min = 2, max = 200, message 
@@ -29,16 +29,11 @@ public class Dog implements IDog {
         this.size = size;
     }
 
-    public double getSize() {
-        return size;
-    }
-
-    public void setSize(double size) {
-        this.size = size;
-    }
-
     public long getId() {
         return id;
+    }
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -63,6 +58,14 @@ public class Dog implements IDog {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
     }
 
     public String toString(){
