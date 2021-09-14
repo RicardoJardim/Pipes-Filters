@@ -1,9 +1,9 @@
 package com.architecture.CrossCutting.PipesFilters.Sinks;
 
-import com.architecture.Entities.Dog;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 import com.architecture.Data.Factories.AbstractDogFactory;
 import com.architecture.Data.Factories.DogFactory;
+import com.architecture.Domain.Entities.Dog;
 
 public class SinkDog extends ISink<Dog> {
     private static final AbstractDogFactory factory = DogFactory.getInstance();

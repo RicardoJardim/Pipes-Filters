@@ -1,13 +1,13 @@
-package com.architecture.Services;
+package com.architecture.Domain.Services;
 
-import com.architecture.Entities.Cat;
-import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateObject;
-import com.architecture.Data.Factories.AbstractCatFactory;
-import com.architecture.Data.Factories.CatFactory;
-import com.architecture.Data.Repositories.CatRepository;
-import com.architecture.Data.Repositories.IRepository;
 import com.architecture.CrossCutting.PipesFilters.CustomExceptions;
-import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateCat;
+import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateDog;
+import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateObject;
+import com.architecture.Data.Factories.AbstractDogFactory;
+import com.architecture.Data.Factories.DogFactory;
+import com.architecture.Data.Repositories.DogRepository;
+import com.architecture.Data.Repositories.IRepository;
+import com.architecture.Domain.Entities.Dog;
 
 import org.springframework.stereotype.Service;
 
@@ -15,20 +15,42 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
-public class CatService implements ICatService {
-  
-    private static final AbstractCatFactory factory = CatFactory.getInstance();
-    
-    private static final IRepository<Cat> repository = new CatRepository();
+public class DogService implements IDogService {
+    private static final AbstractDogFactory factory = DogFactory.getInstance();
+    private static final IRepository<Dog> repository = new DogRepository();
 
-    
+
     @Override
-    public Cat addCat(Cat catHttp) throws Exception {
+    public Dog addDog(Dog dogHttp) throws Exception {
         try{
 
-            Cat cat =  verifyCatPipeline(catHttp, new ValidateCat());
+            Dog dog =  verifyDogPipeline(dogHttp, new ValidateDog());
 
-            return repository.addEntity(cat);
+            return repository.addEntity(dog);
+
+        }catch(ExecutionException ex){
+            Throwable cause = ex.getCause();
+            if (cause instanceof CustomExceptions) {
+                CustomExceptions cause2 = (CustomExceptions) cause;
+                throw cause2;
+            }else{
+                throw ex;
+            }
+        }
+        catch(Exception ex){
+             throw ex;
+        }
+    }
+
+    public Dog addDog(String title,String description, double pric, double size) throws Exception{
+
+        try{
+
+            Dog dogTemp = (Dog) factory.CreateObject(title, description, pric, size);
+
+            Dog dog =  verifyDogPipeline(dogTemp, new ValidateDog());
+
+            return repository.addEntity(dog);
 
         }catch(ExecutionException ex){
             Throwable cause = ex.getCause();
@@ -45,37 +67,12 @@ public class CatService implements ICatService {
     }
 
     @Override
-    public Cat addCat(String title,String description, double pric) throws Exception{
-
+    public Dog updateDog(long id, Dog dogHttp) throws Exception {
         try{
 
-            Cat catTemp = (Cat) factory.CreateObject( title, description, pric);
+            Dog dog =  verifyDogPipeline(id,dogHttp, new ValidateDog());
 
-            Cat cat =  verifyCatPipeline(catTemp, new ValidateCat());
-
-            return repository.addEntity(cat);
-
-        }catch(ExecutionException ex){
-            Throwable cause = ex.getCause();
-            if (cause instanceof CustomExceptions) {
-                CustomExceptions cause2 = (CustomExceptions) cause;
-                throw cause2;
-            }else{
-                throw ex;
-            }
-        }
-        catch(Exception ex){
-             throw ex;
-        }
-    }
-
-    @Override
-    public Cat updateCat(long id, Cat catHttp) throws Exception {
-        try{
-
-            Cat cat =  verifyCatPipeline(id,catHttp, new ValidateCat());
-
-            return repository.updateEntity(id,cat);
+            return repository.updateEntity(id,dog);
 
          }catch(ExecutionException ex){
             Throwable cause = ex.getCause();
@@ -91,10 +88,8 @@ public class CatService implements ICatService {
         }
     }   
 
-   
-
     @Override
-    public boolean removeCat(long id) throws Exception {
+    public boolean removeDog(long id) throws Exception {
          
         try{
 
@@ -115,7 +110,7 @@ public class CatService implements ICatService {
     }
 
     @Override
-    public Cat getCat(long id) throws Exception {
+    public Dog getDog(long id) throws Exception {
         try{
 
             return repository.getEntity(id);
@@ -135,7 +130,7 @@ public class CatService implements ICatService {
     }
 
     @Override
-    public List<Cat> getAllCats() throws Exception {
+    public List<Dog> getAllDogs() throws Exception {
         try{
             return repository.getAllEntities();
             
@@ -153,14 +148,16 @@ public class CatService implements ICatService {
         }
     }
     
-    private Cat verifyCatPipeline(long id, Cat catHttp, ValidateObject<Cat> validateMethod) throws Exception{  
-        return (Cat) validateMethod.execute(id, catHttp); 
+    private Dog verifyDogPipeline(long id, Dog catHttp, ValidateObject<Dog> validateMethod) throws Exception{
+  
+        return (Dog) validateMethod.execute(id, catHttp); 
     }
 
-    private Cat verifyCatPipeline(Cat catHttp, ValidateObject<Cat> validateMethod) throws Exception{  
-        return (Cat) validateMethod.execute(0, catHttp); 
+    private Dog verifyDogPipeline( Dog catHttp, ValidateObject<Dog> validateMethod) throws Exception{
+  
+        return (Dog) validateMethod.execute(0, catHttp); 
     }
 
 
-
+ 
 }

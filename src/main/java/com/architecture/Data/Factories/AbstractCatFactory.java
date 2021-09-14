@@ -1,6 +1,6 @@
 package com.architecture.Data.Factories;
 
-import com.architecture.Entities.ICat;
+import com.architecture.Domain.Entities.ICat;
 
 public abstract class AbstractCatFactory{
 

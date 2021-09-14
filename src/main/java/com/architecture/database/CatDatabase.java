@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.architecture.Entities.Cat;
+import com.architecture.Domain.Entities.Cat;
 
 public final class CatDatabase  {
     

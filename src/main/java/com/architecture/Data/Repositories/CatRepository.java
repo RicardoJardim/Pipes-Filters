@@ -2,7 +2,7 @@ package com.architecture.Data.Repositories;
 import java.util.List;
 
 import com.architecture.Database.CatDatabase;
-import com.architecture.Entities.Cat;
+import com.architecture.Domain.Entities.Cat;
 
 import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;

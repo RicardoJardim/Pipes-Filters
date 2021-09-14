@@ -2,7 +2,7 @@ package com.architecture.Data.Repositories;
 import java.util.List;
 
 import com.architecture.Database.DogDatabase;
-import com.architecture.Entities.Dog;
+import com.architecture.Domain.Entities.Dog;
 
 import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;

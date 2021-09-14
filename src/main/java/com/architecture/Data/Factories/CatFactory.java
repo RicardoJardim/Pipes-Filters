@@ -1,7 +1,7 @@
 package com.architecture.Data.Factories;
 
-import com.architecture.Entities.Cat;
-import com.architecture.Entities.ICat;
+import com.architecture.Domain.Entities.Cat;
+import com.architecture.Domain.Entities.ICat;
 
 public final class CatFactory extends AbstractCatFactory {
 

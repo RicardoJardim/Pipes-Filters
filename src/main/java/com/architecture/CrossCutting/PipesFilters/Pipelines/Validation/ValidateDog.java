@@ -3,7 +3,7 @@ package com.architecture.CrossCutting.PipesFilters.Pipelines.Validation;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 import com.architecture.CrossCutting.PipesFilters.Sinks.ISink;
 import com.architecture.CrossCutting.PipesFilters.Sinks.SinkDog;
-import com.architecture.Entities.Dog;
+import com.architecture.Domain.Entities.Dog;
 
 public class ValidateDog extends ValidateObject<Dog> {
 

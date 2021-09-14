@@ -1,10 +1,9 @@
-package com.architecture.Entities;
+package com.architecture.Domain.Entities;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-public class Cat  implements ICat {
+public class Dog implements IDog {
     private long id;
 
     @NotNull(message = "Title cannot be null")
@@ -17,20 +16,22 @@ public class Cat  implements ICat {
       = "Description must be between 10 and 200 characters")
     private String description;
 
-    private double price;
-    
+    @NotNull(message = "Price cannot be null")
+    private double size;
 
-	public Cat(long id, String title, String description, double price) {
+    private double price;
+
+	public Dog(long id, String title, String description, double price, double size) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
+        this.size = size;
     }
 
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -59,13 +60,24 @@ public class Cat  implements ICat {
         this.price = price;
     }
 
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
+
     public String toString(){
-        final StringBuilder sb = new StringBuilder("Cat{");
+        final StringBuilder sb = new StringBuilder("Dog{");
         sb.append("id=").append(this.id);
         sb.append(", name='").append(this.title).append("'");
-        sb.append(", description=").append(this.description).append("'");
+        sb.append(", description='").append(this.description).append("'");
         sb.append(", price=").append(this.price);
+        sb.append(", size=").append(this.size);
         sb.append('}');
         return sb.toString();
     }
+
 }
+

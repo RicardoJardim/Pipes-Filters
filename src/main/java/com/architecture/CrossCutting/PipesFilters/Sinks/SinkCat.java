@@ -1,9 +1,9 @@
 package com.architecture.CrossCutting.PipesFilters.Sinks;
 
-import com.architecture.Entities.Cat;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 import com.architecture.Data.Factories.AbstractCatFactory;
 import com.architecture.Data.Factories.CatFactory;
+import com.architecture.Domain.Entities.Cat;
 
 public class SinkCat extends ISink<Cat> {
     private static final AbstractCatFactory factory = CatFactory.getInstance();

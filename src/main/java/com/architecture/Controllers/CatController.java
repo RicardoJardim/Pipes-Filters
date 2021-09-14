@@ -10,9 +10,10 @@ import com.architecture.CrossCutting.HttpDecorators.Objects.AbstractHttpObject;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectError;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectOk;
 import com.architecture.CrossCutting.PipesFilters.CustomExceptions;
-import com.architecture.Entities.Cat;
-import com.architecture.Entities.ICat;
-import com.architecture.Services.ICatService;
+import com.architecture.Domain.Entities.Cat;
+import com.architecture.Domain.Entities.ICat;
+import com.architecture.Domain.Services.ICatService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;

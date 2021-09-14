@@ -3,9 +3,7 @@ package com.architecture.Controllers;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import com.architecture.Entities.Dog;
-import com.architecture.Entities.IDog;
-import com.architecture.Services.IDogService;
+
 import com.architecture.CrossCutting.HttpDecorators.HttpDecorator;
 import com.architecture.CrossCutting.HttpDecorators.HttpOkDecorator;
 import com.architecture.CrossCutting.HttpDecorators.HttpErrorDecorator;
@@ -13,6 +11,10 @@ import com.architecture.CrossCutting.HttpDecorators.Objects.AbstractHttpObject;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectError;
 import com.architecture.CrossCutting.HttpDecorators.Objects.HttpObjectOk;
 import com.architecture.CrossCutting.PipesFilters.CustomExceptions;
+import com.architecture.Domain.Entities.Dog;
+import com.architecture.Domain.Entities.IDog;
+import com.architecture.Domain.Services.IDogService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;

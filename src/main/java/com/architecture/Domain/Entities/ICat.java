@@ -1,4 +1,4 @@
-package com.architecture.Entities;
+package com.architecture.Domain.Entities;
 
 public interface ICat {
     public long getId();

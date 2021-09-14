@@ -1,7 +1,7 @@
 package com.architecture.Data.Factories;
 
-import com.architecture.Entities.Dog;
-import com.architecture.Entities.IDog;
+import com.architecture.Domain.Entities.Dog;
+import com.architecture.Domain.Entities.IDog;
 
 public class DogFactory extends AbstractDogFactory {
 

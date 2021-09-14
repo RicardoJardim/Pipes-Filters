@@ -3,7 +3,7 @@ package com.architecture.CrossCutting.PipesFilters.Pipelines.Validation;
 import com.architecture.CrossCutting.PipesFilters.Pipes.IPipe;
 import com.architecture.CrossCutting.PipesFilters.Sinks.ISink;
 import com.architecture.CrossCutting.PipesFilters.Sinks.SinkCat;
-import com.architecture.Entities.Cat;
+import com.architecture.Domain.Entities.Cat;
 
 public class ValidateCat extends ValidateObject<Cat> {
 

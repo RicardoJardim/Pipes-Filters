@@ -1,7 +1,7 @@
-package com.architecture.Services;
+package com.architecture.Domain.Services;
 import java.util.*;
 
-import com.architecture.Entities.Cat;
+import com.architecture.Domain.Entities.Cat;
 
 public interface ICatService {
     public Cat addCat(Cat cat) throws Exception;

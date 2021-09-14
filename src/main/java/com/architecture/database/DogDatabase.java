@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.architecture.Entities.Dog;
+import com.architecture.Domain.Entities.Dog;
 
 public final class DogDatabase {
     
