@@ -4,7 +4,7 @@ import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateO
 import com.architecture.Data.Factories.AbstractCatFactory;
 import com.architecture.Data.Factories.CatFactory;
 import com.architecture.Data.Repositories.CatRepository;
-import com.architecture.Data.Repositories.IRepository;
+import com.architecture.Data.Repositories.ICatRepository;
 import com.architecture.Domain.Entities.Cat;
 import com.architecture.CrossCutting.PipesFilters.CustomExceptions;
 import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateCat;
@@ -19,11 +19,12 @@ public class CatService implements ICatService {
   
     private static final AbstractCatFactory factory = CatFactory.getInstance();
     
-    private static final IRepository<Cat> repository = new CatRepository();
+    private static final ICatRepository repository = CatRepository.getInstance();
 
     
     @Override
     public Cat addCat(Cat catHttp) throws Exception {
+
         try{
 
             Cat cat =  verifyCatPipeline(catHttp, new ValidateCat());

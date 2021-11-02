@@ -6,7 +6,7 @@ import com.architecture.CrossCutting.PipesFilters.Pipelines.Validation.ValidateO
 import com.architecture.Data.Factories.AbstractDogFactory;
 import com.architecture.Data.Factories.DogFactory;
 import com.architecture.Data.Repositories.DogRepository;
-import com.architecture.Data.Repositories.IRepository;
+import com.architecture.Data.Repositories.IDogRepository;
 import com.architecture.Domain.Entities.Dog;
 
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class DogService implements IDogService {
     private static final AbstractDogFactory factory = DogFactory.getInstance();
-    private static final IRepository<Dog> repository = new DogRepository();
+    private static final IDogRepository repository = DogRepository.getInstance();
 
 
     @Override

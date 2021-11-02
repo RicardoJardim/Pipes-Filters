@@ -7,10 +7,30 @@ import com.architecture.Domain.Entities.Cat;
 import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
 
-public class CatRepository implements IRepository<Cat> {
+public final class CatRepository implements ICatRepository {
 
     private static final CatDatabase database = CatDatabase.getInstance();
     private static final Logger log = LoggerFactory.getLogger(CatRepository.class);
+
+    private static volatile CatRepository instance;
+   
+    private CatRepository() {
+
+    }
+
+    public static CatRepository getInstance() {
+
+        CatRepository result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(CatRepository.class) {
+            if (instance == null) {
+                instance = new CatRepository();
+            }
+            return instance;
+        }
+    }
 
     @Override
     public Cat addEntity(Cat cat) throws Exception {

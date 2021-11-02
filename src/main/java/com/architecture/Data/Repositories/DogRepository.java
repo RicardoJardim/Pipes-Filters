@@ -7,10 +7,32 @@ import com.architecture.Domain.Entities.Dog;
 import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
 
-public class DogRepository implements IRepository<Dog> {
+public final class DogRepository implements IDogRepository {
 
     private static final DogDatabase database = DogDatabase.getInstance();
     private static final Logger log = LoggerFactory.getLogger(DogRepository.class);
+
+
+    private static volatile DogRepository instance;
+   
+    private DogRepository() {
+
+    }
+
+    public static DogRepository getInstance() {
+
+        DogRepository result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(DogRepository.class) {
+            if (instance == null) {
+                instance = new DogRepository();
+            }
+            return instance;
+        }
+    }
+
 
     @Override
     public Dog addEntity(Dog Dog) throws Exception {
